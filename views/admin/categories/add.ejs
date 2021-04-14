@@ -1,0 +1,16 @@
+<%- include('../../partials/adminHeader') %>
+    
+<div class="row mt-3">
+    <h1 class="mb-4">Add new category</h1>
+
+    <form action="/admin/categories/add" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" id="title" placeholder="Insert title here..." value="<%= title %>">
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+
+    
+<%- include('../../partials/adminFooter') %> 

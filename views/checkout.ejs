@@ -1,0 +1,88 @@
+<%- include('./partials/header') %>
+<%- include('./partials/userNavbar') %>
+
+<%- include('./partials/sideCategoriesList') %> 
+
+<% if (typeof cart !== 'undefined') { %>
+
+    <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+            <% let total = 0 %> 
+            <% cart.forEach((product) => { %>
+                <% const sub = parseFloat(product.qty * product.price).toFixed(2) %> 
+                <% total += + sub %> 
+                <tr>
+                    <td><img class="img-thumbnail img-product" src="<%= product.image %> "></td>
+                    <td><%= product.title %></td>
+                    <td>$<%= product.price %></td>
+                    <td><%= product.qty %></td>
+                    <td>$<%= sub %></td>
+                    <td>
+                        <a href="/cart/update/<%= product.title %>?action=add" class="btn btn-outline-primary">+</a>
+                        <a href="/cart/update/<%= product.title %>?action=remove" class="btn btn-outline-danger">-</a>
+                        <a href="/cart/update/<%= product.title %>?action=clear" class="btn btn-outline-success">x</a>
+                    </td>
+                </tr>
+            <% }) %> 
+            <tr>
+                <td colspan="6" align="right"><b>Total: $<%= parseFloat(total).toFixed(2) %></b></td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right">
+                    <a href="/cart/clear" class="clear-cart btn btn-danger">Clear cart</a>
+                    <a href="#" class="buy-now btn btn-primary">Buy</a>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+
+      <form class="pp" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_cart">
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="business" value="jultranet-facilitator@gmail.com">
+        <% let num = 0 %> 
+        <% cart.forEach((p) => { %>
+            <% num++ %> 
+            <input type="hidden" name="item_name_<%= num %>" value="<%= p.title %>">
+            <input type="hidden" name="amount_<%= num %>" value="<%= p.price %>">
+            <input type="hidden" name="quantity_<%= num %>" value="<%= p.qty %>">
+        <% }) %> 
+        <input type="submit" value="PayPal">
+    </form>
+
+<% } else { %>
+    <h2 class="text-center">Your cart is empty.</h2>
+<% } %> 
+
+<script>
+    $(() => {
+        $('a.clear-cart').on('click', () => {
+            if (!confirm("Are you sure to clear your cart?")) {
+                return false;
+            }
+        });
+
+        $('a.buy-now').on('click', (e) => {
+            e.preventDefault();
+
+            $.get('/cart/buynow', () => {
+                $('form.pp input[type=submit]').click();
+                $('.ajax-bg').show();
+            });
+        });
+    });
+</script>
+
+
+<%- include('./partials/footer') %> 

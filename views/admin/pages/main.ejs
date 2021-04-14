@@ -1,0 +1,62 @@
+<%- include('../../partials/adminHeader') %>
+
+<h1>List of pages</h1>
+
+<a href="/admin/pages/add" class="btn btn-primary mt-3">Add new page</a>
+
+<div class="mt-4">
+    <table class="table">
+        <thead>
+            <tr class="home">
+                <th>Page</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <% pages.forEach((page) => { %>
+                <tr id="id_<%= page.id %>" class="<%= page.slug %>">
+                    <td><%= page.title %></td>
+                    <td>
+                        <div class="col">
+                            <a href="/admin/pages/edit/<%= page.id %>" class="btn btn-warning">Edit</a>
+                        </div>
+                    </td>
+                    <% if(page.slug == 'home') { %>
+                        <td></td>
+                    <% } else { %>
+                        <td>
+                            <div class="col">
+                                <form action="/admin/pages/<%= page.id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger confirmDeletion" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    <% } %> 
+                </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+</div>
+
+
+
+    
+
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+<script>
+    $('tbody').sortable({
+        items: "tr:not('.home')",
+        placeholder: "ui-state-highlight",
+        update: function() {
+            var ids = $('tbody').sortable("serialize");
+            var url = "/admin/pages/reorder-page";
+            
+            $.post(url, ids);
+        }
+    }); 
+</script>
+    
+<%- include('../../partials/adminFooter') %> 

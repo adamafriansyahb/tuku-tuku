@@ -1,0 +1,65 @@
+<%- include('../../partials/adminHeader') %>
+
+
+<h1>List of products</h1>
+
+<% if (productCount > 0) { %>
+    <a href="/admin/products/add" class="btn btn-primary mt-3">Add new product</a>
+
+    <div class="mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price (USD)</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <% products.forEach((product) => { %>
+                    <tr>
+                        <td><%= product.title %></td>
+                        <td><%= parseFloat(product.price).toFixed(2) %></td>
+                        <td><%= product.category %></td>
+                        <td>
+                            <% if (product.image == '') { %>
+                                <img src="/img/products/noimage.png" class="img-product img-thumbnail">
+                            <% } else { %>
+                                <img src="/img/products/<%= product.id %>/<%= product.image %>" class="img-thumbnail img-product" >
+                            <% } %> 
+                        </td>
+                        <td>
+                            <div>
+                                <a href="/admin/products/edit/<%= product.id %>" class="btn btn-warning">Edit</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <form action="/admin/products/<%= product.id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger confirmDeletion" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %> 
+            </tbody>
+        </table>
+    </div>
+<% } else { %>
+    <div class="d-flex justify-content-center mt-5">
+        <h3>There are no products.</h3> 
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a href="/admin/products/add" class="btn btn-primary mt-3">Add new product</a>
+    </div>
+
+<% } %> 
+
+
+    
+<%- include('../../partials/adminFooter') %> 

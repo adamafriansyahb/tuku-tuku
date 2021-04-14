@@ -1,0 +1,38 @@
+<%- include('./partials/header') %>
+<%- include('./partials/userNavbar') %>
+<%- include('./partials/sideCategoriesList') %>
+
+<div class="row">
+    <h1 class="page-header"><%= product.title %></h1>
+
+    <div class="col-12 col-md-5">
+        <img src="/img/products/<%= product.id %>/<%= product.image %>" class="img-thumbnail">
+    </div>
+
+    <div class="col-12 col-md-7">
+        <p><%= product.description %></p>
+        <p>$<%= parseFloat(product.price).toFixed(2) %></p>
+        <p>
+            <a href="/cart/add/<%= product.slug %>" class="btn btn-primary">Add to cart</a>
+        </p>
+    </div>
+
+    <div class="col-12">
+        <ul class="gallery">
+            <% galleryImages.forEach((img) => { %>
+                <% if (img != 'thumbs') { %>
+                    <li class="mx-3 mt-4">
+                        <a data-fancybox="gallery" href="/img/products/<%= product.id %>/gallery/<%= img %>">
+                            <img src="/img/products/<%= product.id %>/gallery/thumbs/<%= img %>" class="rounded">
+                        </a>
+                    </li>
+                <% } %> 
+            <% }) %> 
+        </ul>
+    </div>
+
+</div>
+
+
+
+<%- include('./partials/footer') %> 

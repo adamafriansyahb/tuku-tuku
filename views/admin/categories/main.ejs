@@ -1,0 +1,40 @@
+<%- include('../../partials/adminHeader') %>
+
+
+<h1>List of categories</h1>
+
+<a href="/admin/categories/add" class="btn btn-primary mt-3">Add new category</a>
+
+<div class="mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <% categories.forEach((category) => { %>
+                <tr>
+                    <td><%= category.title %></td>
+                    <td>
+                        <div>
+                            <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning">Edit</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <form action="/admin/categories/<%= category.id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger confirmDeletion" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+</div>
+    
+<%- include('../../partials/adminFooter') %> 

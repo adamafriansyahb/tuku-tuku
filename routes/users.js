@@ -24,8 +24,6 @@ router.post('/register', async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log('ada error gan..');
-        console.log(errors);
         res.render('auth/register', {errors: errors.array(), title: "Register"});
     } 
     else {
@@ -80,6 +78,12 @@ router.post('/login', (req, res, next) => {
         failureRedirect: '/users/login',
         failureFlash: true
     })(req, res, next);
+});
+
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success', 'You are logged out.');
+    res.redirect('/');
 });
 
 module.exports = router;

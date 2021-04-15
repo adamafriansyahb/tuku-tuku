@@ -1,8 +1,12 @@
 <% Object.keys(messages).forEach(function (type) { %>
-    <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
-        <% messages[type].forEach(function (message) { %>
-            <%= message %>
-        <% }) %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <% if  (type == 'error') { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <% } else { %>
+        <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+    <% } %> 
+            <% messages[type].forEach(function (message) { %>
+                <%= message %>
+            <% }) %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 <% }) %>

@@ -40,49 +40,7 @@
   </div>
 </nav>
 
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container d-flex justify-content-between">
-      <a class="navbar-brand" href="#">Tokopedia</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-
-        <ul class="navbar-nav">
-          <% pages.forEach((page) => { %>
-            <li class="nav-item">
-              <% if (page.slug == 'home') { %>
-                  <a class="nav-link" aria-current="page" href="/"><%= page.title %></a>
-              <% } else { %>
-                  <a class="nav-link" aria-current="page" href="/<%= page.slug %>"><%= page.title %></a>
-              <% } %> 
-            </li>
-          <% }) %> 
-    
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/cart/checkout">
-              My Cart (
-                <% if (typeof cart !== 'undefined') { %>
-                  <%= cart.length %> 
-                <% } else { %>
-                0
-                <% } %>)
-            </a>
-          </li>
-        </ul>
-        
-      </div>
-    </div>
-</nav> -->
-
 <div class="container mt-5 bg-secondary">
     <%- messages('./partials/messages', locals) %> 
 
-    <% if(errors) { %>
-      <% errors.forEach((error) => { %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <%= error.msg %> 
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      <% }) %> 
-    <% } %> 
+    <%- include('./errorMessages') %> 

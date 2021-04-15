@@ -80,6 +80,7 @@ Category.find((err, categories) => {
 // Cart Session
 app.get("*", (req, res, next) => {
     res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
     next();
 });
 

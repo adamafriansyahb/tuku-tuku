@@ -3,8 +3,8 @@
 <div class="container container-login d-flex justify-content-center align-items-center">
     <div class="container container-login-inner p-3 rounded">
         <%- include('../partials/errorMessages') %> 
-        <h2 class="text-center">Register</h2>
-        <form action="/users/register" method="POST">
+        <h2 class="text-center">Login</h2>
+        <form action="/users/login" method="POST">
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input name="username" type="username" class="form-control" id="username">
@@ -13,7 +13,7 @@
               <label for="password" class="form-label">Password</label>
               <input name="password" type="password" class="form-control" id="password">
             </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
             <div class="d-flex justify-content-center">
                 <p class="mb-1">Don't have account?<a class="have-account" href="/users/register"> Create Account</a></p>
             </div>

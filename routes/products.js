@@ -21,6 +21,7 @@ router.get('/:category', async (req, res) => {
 
 router.get('/:category/:product', async (req, res) => {
     let galleryImages = null;
+    let loggedIn = req.isAuthenticated() ? true : false;
     const product = await Product.findOne({slug: req.params.product});
 
     const galleryDir = `public/img/products/${product._id}/gallery`;
@@ -30,7 +31,7 @@ router.get('/:category/:product', async (req, res) => {
         }
         else {
             galleryImages = files;
-            res.render('productDetail', {title: product.title, product, galleryImages});
+            res.render('productDetail', {title: product.title, product, galleryImages, loggedIn});
         }
     });
 

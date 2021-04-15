@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
                     email: email,
                     username: username,
                     password: password1,
-                    admin: 1
+                    admin: 0
                 });
 
                 bcrypt.genSalt(10, (err, salt) => {
@@ -66,7 +66,20 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    res.render('auth/login', {title: "Login"});
+    if (res.locals.user) {
+        res.redirect('/');
+    } 
+    else {
+        res.render('auth/login', {title: "Login"});
+    }
+});
+
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/products',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
 });
 
 module.exports = router;

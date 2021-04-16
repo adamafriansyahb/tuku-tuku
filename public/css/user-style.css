@@ -1,3 +1,7 @@
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -24,9 +28,9 @@ table.align-middle td {
   max-width: 35rem;
 }
 
-.container-login-inner {
-  /* background: #1da1f2; */
-}
+/* .container-login-inner {
+   background: #1da1f2; 
+} */
 
 a.have-account {
   color: dodgerblue;
@@ -58,4 +62,13 @@ a.have-account {
 .ajax-img {
   height: 50px;
   width: 50px;
+}
+
+.product-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.product-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

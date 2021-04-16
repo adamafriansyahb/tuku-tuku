@@ -9,6 +9,8 @@ const Product = require('../models/Product');
 const Category = require('../models/Category');
 const { check, validationResult } = require('express-validator');
 
+const {isAdmin} = require('../config/auth');
+
 const correctExt = (image) => {
     const extensions = ['jpeg', 'jpg', 'png'];
     if (image !== '') {
@@ -24,13 +26,13 @@ const correctExt = (image) => {
     }
 } 
 
-router.get('/', async (req, res) => {
+router.get('/', isAdmin, async (req, res) => {
     const productCount = await Product.count();
     const products = await Product.find();
     res.render('admin/products/main', {products, productCount});
 });
 
-router.get('/add', async (req, res) => {
+router.get('/add', isAdmin, async (req, res) => {
     const categories = await Category.find();
     const title = "";
     const price = "";
@@ -114,7 +116,7 @@ router.post('/add', async (req, res) => {
 
 });
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', isAdmin, async (req, res) => {
     let errors;
     if (req.sessions) errors = req.session.errors;
     req.session.errors = null;
@@ -175,7 +177,6 @@ router.put('/:id', async (req, res) => {
         else {
             res.redirect(`/admin/products`);
         }
-        console.log(errors);
     }
     else {
         try {
@@ -188,7 +189,6 @@ router.put('/:id', async (req, res) => {
             if (prevProduct) {
                 req.flash('danger', 'Product already exists.');
                 res.redirect(`/admin/products/edit/${id}`);
-                console.log(prevProduct)
             } 
             else {
                 const product = await Product.findById(id);
@@ -197,8 +197,6 @@ router.put('/:id', async (req, res) => {
                 product.description = description;
                 product.price = price;
                 product.category = category;
-    
-                console.log(product);
     
                 if (image !== '') {
                     product.image = image

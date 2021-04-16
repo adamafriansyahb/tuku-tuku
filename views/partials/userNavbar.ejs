@@ -8,21 +8,24 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container">
     <div>
-      <a class="navbar-brand" href="/">tuku-tuku</a>
-        <% pages.forEach((page) => { %>
+      <a class="navbar-brand" href="/"><b>tuku-tuku</b></a>
+      <% if (user && user.admin == 1) { %>
+        <a href="/admin/pages">Admin Area</a>
+      <% } %>
+        <!-- <% pages.forEach((page) => { %>
             <% if (page.slug == 'home') { %>
                 <a  href="/"><%= page.title %></a>
             <% } else { %>
                 <a  href="/<%= page.slug %>"><%= page.title %></a>
             <% } %> 
-        <% }) %>
+        <% }) %> -->
     </div>
     <div>
       <% if (!user) { %>
         <a href="/users/login" class="btn btn-outline-primary">Login</a>
         <a href="/users/register" class="btn btn-primary">Register</a>
       <% } else { %>
-        <a  href="/cart/checkout">
+        <a  href="/cart/checkout" class="mx-3">
           My Cart (
             <% if (typeof cart !== 'undefined') { %>
               <%= cart.length %> 
@@ -30,9 +33,6 @@
             0
             <% } %>)
         </a>
-        <% if (user && user.admin == 1) { %>
-          <a href="/admin/pages">Admin Area</a>
-        <% } %> 
         <a href="/users/logout" ><%= user.name %> (Logout)</a>
       <% } %> 
        
@@ -40,7 +40,7 @@
   </div>
 </nav>
 
-<div class="container mt-5 bg-secondary">
+<div class="container mt-5">
     <%- messages('./partials/messages', locals) %> 
 
     <%- include('./errorMessages') %> 

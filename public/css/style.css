@@ -1,3 +1,7 @@
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
 .img-product {
   width: 150px;
   height: 150px;
@@ -14,4 +18,8 @@ ul.gallery {
 
 ul.gallery li {
   display: inline-block;
+}
+
+.product-card {
+  max-height: 200px;
 }

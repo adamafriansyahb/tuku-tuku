@@ -81,6 +81,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/logout', (req, res) => {
+    delete req.session.cart;
     req.logout();
     req.flash('success', 'You are logged out.');
     res.redirect('/');
